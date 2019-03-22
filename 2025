@@ -1,0 +1,39 @@
+#include <iostream>
+#include <cstdlib> // РґР»СЏ system
+using namespace std;
+
+int main()
+{
+    int test;
+    cin >> test;
+    for (int p=0;p<test;p++){
+    int men,group,i,res=0;
+    cin >> men;
+    cin >> group;
+    int mi=men/group;
+    int nmi=men%group;
+    int mig[group];
+        if (nmi!=0){
+            for (i=0;i<nmi;i++){
+                mig[i]=mi+1;
+            }
+            while (i<group){
+                mig[i]=mi;
+                i++;
+            }
+            int bla=men;
+            for (i=0;i<group;i++){
+                bla -= mig[i];
+                res+= mig[i]*bla;
+            }
+        }
+        else{
+            for (int i=group;i>1;i--) {
+                res += (mi*mi)*(i-1);
+            }
+        }
+    cout << res << endl;
+
+}
+return 0;
+}
