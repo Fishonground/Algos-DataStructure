@@ -1,0 +1,60 @@
+#include <iostream>
+#include <cmath>
+#include <climits>
+#define PI 3.14159265358979323846
+
+using namespace std;
+
+typedef struct {
+	long x;
+	long y;
+	long n;
+	double angle;
+} point;
+
+long n, y_min = LONG_MAX, y_min_num;
+point p[10005];
+
+
+void swap(point* a, point* b)
+{
+	point tmp = *a;
+	*a = *b;
+	*b = tmp;
+}
+
+int main()
+{
+	cin >> n;
+	for (int i = 0; i<n; i++)
+	{
+		cin >> p[i].x >> p[i].y;
+		p[i].n = i + 1;
+		// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ y
+		if (p[i].y < y_min || p[i].y == y_min && p[i].x < p[y_min_num].x)
+		{
+			y_min = p[i].y;
+			y_min_num = i;
+		}
+	}
+	swap(&p[0], &p[y_min_num]);
+
+	for (int i = 1; i < n; i++)
+	{
+		if (p[i].x == p[0].x) p[i].angle = PI / 2;
+		else if (p[i].y == p[0].y) p[i].angle = 0;
+		else p[i].angle = atan((double)(p[i].y - p[0].y) / (double)(p[i].x - p[0].x));
+		if (p[i].angle < 0) p[i].angle += 2 * PI;
+	}
+
+	//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ
+	for (long i = 1; i < n - 1; i++)
+		for (long j = i + 1; j < n; j++)
+			if (p[i].angle > p[j].angle)
+				swap(&p[i], &p[j]);
+	
+	
+	cout << p[0].n << " " << p[n/2].n << endl;
+
+	return 0;
+}
