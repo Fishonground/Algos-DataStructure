@@ -1,0 +1,29 @@
+#include<iostream>
+
+#include<climits>
+using namespace std;
+
+
+int main()
+{
+    int a[60000];
+    int kol;
+    int sum=0;
+    int msumold=0;
+    scanf("%d",&kol);
+    for (int i=0;i<kol;i++){
+        a[i]=0;
+        scanf("%d",&a[i]);
+        
+        
+        sum+=a[i];
+        if (sum<a[i]){
+        sum=a[i];}
+        if (sum>msumold){
+            msumold =sum;
+        }
+
+    }
+    if (msumold < 0) cout << 0;
+    printf("%d", msumold);
+}
