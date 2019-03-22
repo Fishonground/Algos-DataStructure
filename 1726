@@ -1,0 +1,107 @@
+#include <iostream>
+#include <stdlib.h>
+#include <math.h>
+using namespace std;
+void selectionSort(int data[], int lenD);
+
+void quickSort(long numbers[], long left, long right);
+
+
+int main() {
+    /*int n=0;
+    int x[100050];
+    int y[100050];
+    int way =0;
+    float a=0;
+    scanf("%d",&n);
+    float b=0;
+    for (int i=0; i<n; i++) {
+        //cin >> x[i];
+        scanf("%d",&x[i]);
+        scanf("%d",&y[i]);
+        //cin >> y[i];
+        //cout << x[i] << " " << y[i] << endl;
+    }
+    for (int i=0;i<n;i++){
+        a=0;
+        for(int k=0;k<n;k++) {
+            if (k != i) {
+                a += abs(x[k]-x[i]) + abs(y[k]-y[i]);
+            }
+        }
+        a = a / (n - 1);
+        b+=a;
+    }
+    float q = floor(b/n);
+    printf("%.0f", q);*/
+    /////////////////////////////////////
+    long n=0;
+    long x[100050];
+    long y[100050];
+    int way =0;
+    float a=0;
+    scanf("%li",&n);
+    float b=0;
+    for (int i=0; i<n; i++) {
+        scanf("%li",&x[i]);
+        scanf("%li",&y[i]);
+    }
+    quickSort(&x[0], 0, n-1);
+    quickSort(&y[0], 0, n-1);
+    //selectionSort(&x[0],n);
+    //selectionSort(&y[0],n);
+    long long q = 0;
+    for (int i=0; i<n-1; i++){
+        q += (x[i+1]-x[i] + y[i+1]-y[i])*(i+1)*(n-i-1) << 1;
+    }
+    //double q1 = floor(q/n/(n-1));
+    printf("%.0f", floor(q/n/(n-1)));
+}
+void selectionSort(int data[], int lenD)
+{
+    int j = 0;
+    int tmp = 0;
+    for(int i=0; i<lenD; i++){
+        j = i;
+        for(int k = i; k<lenD; k++){
+            if(data[j]>data[k]){
+                j = k;
+            }
+        }
+        tmp = data[i];
+        data[i] = data[j];
+        data[j] = tmp;
+    }
+}
+
+void quickSort(long numbers[], long left, long right) {
+    long pivot; // Ñ€Ð°Ð·Ñ€ÐµÑˆÐ°ÑŽÑ‰Ð¸Ð¹ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚
+    long l_hold = left; //Ð»ÐµÐ²Ð°Ñ Ð³Ñ€Ð°Ð½Ð¸Ñ†Ð°
+    long r_hold = right; // Ð¿Ñ€Ð°Ð²Ð°Ñ Ð³Ñ€Ð°Ð½Ð¸Ñ†Ð°
+    pivot = numbers[left];
+    while (left < right) // Ð¿Ð¾ÐºÐ° Ð³Ñ€Ð°Ð½Ð¸Ñ†Ñ‹ Ð½Ðµ ÑÐ¾Ð¼ÐºÐ½ÑƒÑ‚ÑÑ
+    {
+        while ((numbers[right] >= pivot) && (left < right))
+            right--; // ÑÐ´Ð²Ð¸Ð³Ð°ÐµÐ¼ Ð¿Ñ€Ð°Ð²ÑƒÑŽ Ð³Ñ€Ð°Ð½Ð¸Ñ†Ñƒ Ð¿Ð¾ÐºÐ° ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚ [right] Ð±Ð¾Ð»ÑŒÑˆÐµ [pivot]
+        if (left != right) // ÐµÑÐ»Ð¸ Ð³Ñ€Ð°Ð½Ð¸Ñ†Ñ‹ Ð½Ðµ ÑÐ¾Ð¼ÐºÐ½ÑƒÐ»Ð¸ÑÑŒ
+        {
+            numbers[left] = numbers[right]; // Ð¿ÐµÑ€ÐµÐ¼ÐµÑ‰Ð°ÐµÐ¼ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚ [right] Ð½Ð° Ð¼ÐµÑÑ‚Ð¾ Ñ€Ð°Ð·Ñ€ÐµÑˆÐ°ÑŽÑ‰ÐµÐ³Ð¾
+            left++; // ÑÐ´Ð²Ð¸Ð³Ð°ÐµÐ¼ Ð»ÐµÐ²ÑƒÑŽ Ð³Ñ€Ð°Ð½Ð¸Ñ†Ñƒ Ð²Ð¿Ñ€Ð°Ð²Ð¾
+        }
+        while ((numbers[left] <= pivot) && (left < right))
+            left++; // ÑÐ´Ð²Ð¸Ð³Ð°ÐµÐ¼ Ð»ÐµÐ²ÑƒÑŽ Ð³Ñ€Ð°Ð½Ð¸Ñ†Ñƒ Ð¿Ð¾ÐºÐ° ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚ [left] Ð¼ÐµÐ½ÑŒÑˆÐµ [pivot]
+        if (left != right) // ÐµÑÐ»Ð¸ Ð³Ñ€Ð°Ð½Ð¸Ñ†Ñ‹ Ð½Ðµ ÑÐ¾Ð¼ÐºÐ½ÑƒÐ»Ð¸ÑÑŒ
+        {
+            numbers[right] = numbers[left]; // Ð¿ÐµÑ€ÐµÐ¼ÐµÑ‰Ð°ÐµÐ¼ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚ [left] Ð½Ð° Ð¼ÐµÑÑ‚Ð¾ [right]
+            right--; // ÑÐ´Ð²Ð¸Ð³Ð°ÐµÐ¼ Ð¿Ñ€Ð°Ð²ÑƒÑŽ Ð³Ñ€Ð°Ð½Ð¸Ñ†Ñƒ Ð²Ð¿Ñ€Ð°Ð²Ð¾
+        }
+    }
+    numbers[left] = pivot; // ÑÑ‚Ð°Ð²Ð¸Ð¼ Ñ€Ð°Ð·Ñ€ÐµÑˆÐ°ÑŽÑ‰Ð¸Ð¹ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚ Ð½Ð° Ð¼ÐµÑÑ‚Ð¾
+    pivot = left;
+    left = l_hold;
+    right = r_hold;
+    if (left < pivot) // Ð ÐµÐºÑƒÑ€ÑÐ¸Ð²Ð½Ð¾ Ð²Ñ‹Ð·Ñ‹Ð²Ð°ÐµÐ¼ ÑÐ¾Ñ€Ñ‚Ð¸Ñ€Ð¾Ð²ÐºÑƒ Ð´Ð»Ñ Ð»ÐµÐ²Ð¾Ð¹ Ð¸ Ð¿Ñ€Ð°Ð²Ð¾Ð¹ Ñ‡Ð°ÑÑ‚Ð¸ Ð¼Ð°ÑÑÐ¸Ð²Ð°
+        quickSort(numbers, left, pivot - 1);
+    if (right > pivot)
+        quickSort(numbers, pivot + 1, right);
+}
